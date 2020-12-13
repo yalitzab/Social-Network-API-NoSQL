@@ -3,21 +3,21 @@ const {
   getAllThought,
   getThoughtById,
   createThought,
-  removeComment,
-  addReply,
-  removeReply
+  removeThought,
+  addReaction,
+  removeReaction
 } = require('../../controllers/thought-controller');
 
-// /api/comments/<pizzaId>
-router.route('/:pizzaId').post(addComment);
+// /api/thoughts/<userId>
+router.route('/:userId').post(addThought);
 
-// /api/comments/<pizzaId>/<commentId>
+// /api/thoughts/<userId>/<thoughtId>
 router
   .route('/:userId/:thoughtId')
   .put(addReply)
-  .delete(removeComment);
+  .delete(removeThought);
 
-// /api/comments/<pizzaId>/<commentId>/<replyId>
-router.route('/:pizzaId/:commentId/:replyId').delete(removeReply);
+// /api/thoughts/<userId>/<thoughtId>/<reactionId>
+router.route('/:userId/:thoughtId/:reactionId').delete(removeReaction);
 
 module.exports = router;

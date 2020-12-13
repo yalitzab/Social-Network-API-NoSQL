@@ -29,7 +29,14 @@ const userController = {
         select: '-__v'
       })
       .select('-__v')
-      .then(dbUserData => res.json(dbUserData))
+      .then(dbUserData => {
+        // if no user found
+        if (!dbPizzaData) {
+          res.status(404).json({ message: 'No user found with this id!' });
+          return;
+        }
+        res.json(dbUserData);
+      })
       .catch(err => {
         console.log(err);
         res.sendStatus(400);
@@ -64,4 +71,4 @@ const userController = {
   }
 };
 
-module.exports = UserController;
+module.exports = userController;

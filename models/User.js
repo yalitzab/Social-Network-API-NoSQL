@@ -15,13 +15,13 @@ const UserSchema = new Schema(
       match: [/.+@.+\..+/, 'Please enter a valid e-mail address']
     },
 
-    thoughtsId: {
-      type: Schema.Types.thoughtsId,
+    thoughtId: {
+      // type: Schema.Types.objectId,
       ref: 'Thought'
     },
 
-    friendsId: {
-      type: Schema.Types.friendsId,
+    friendId: {
+      // type: Schema.Types.objectId,
       ref: 'User'
     },
    
@@ -38,12 +38,12 @@ const UserSchema = new Schema(
 
 // get total count of comments and replies on retrieval
 UserSchema.virtual('friendCount').get(function() {
-  return this.thoughts.reduce(
-    (total, friends) => total + friends.thoughts.length + 1,
+  return this.thought.reduce(
+    (total, friends) => total + friends.thought.length + 1,
     0
   );
 });
 
-const User = model('user', UserSchema);
+const User = model('User', UserSchema);
 
 module.exports = User;

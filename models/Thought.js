@@ -3,6 +3,10 @@ const dateFormat = require('../utils/dateFormat');
 
 const thoughtSchema = new Schema(
   {
+    thoughtId: {
+      type: Schema.Types.objectId,
+      ref: 'Thought'
+    },
     thoughtText: {
       type: String,
       required: 'Your thoughts must be typed',
