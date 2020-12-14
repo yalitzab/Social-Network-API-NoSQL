@@ -3,8 +3,9 @@ const dateFormat = require('../utils/dateFormat');
 
 const UserSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
+      unique: true,
       required: 'Username is Required',
       trim: true
     },
@@ -15,33 +16,28 @@ const UserSchema = new Schema(
       match: [/.+@.+\..+/, 'Please enter a valid e-mail address']
     },
 
-    thoughtId: {
-      // type: Schema.Types.objectId,
+    thoughts:[{
+      type: Schema.Types.ObjectId,
       ref: 'Thought'
-    },
+    }],
 
-    friendId: {
-      // type: Schema.Types.objectId,
+    friends: [{
+      type: Schema.Types.ObjectId,
       ref: 'User'
-    },
+    }],
    
   },
   {
     toJSON: {
       virtuals: true,
       getters: true
-    },
-    // prevents virtuals from creating duplicate of _id as `id`
-    id: false
+    }
   }
 );
 
-// get total count of comments and replies on retrieval
+// get total count of friends
 UserSchema.virtual('friendCount').get(function() {
-  return this.thought.reduce(
-    (total, friends) => total + friends.thought.length + 1,
-    0
-  );
+  return this.friends.length
 });
 
 const User = model('User', UserSchema);

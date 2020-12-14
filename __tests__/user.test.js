@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 
 const { User } = require('../models');
 const UserData = {
-  userName: 'The Tester',
+  username: 'The Tester',
   createdBy: 'Lernantino',
-  size: 'Personal',
-  toppings: ['Pepperoni', 'Ricotta', 'Sausage']
+
 };
 
 describe('User Model Test', () => {
@@ -31,7 +30,7 @@ describe('User Model Test', () => {
     const savedUser = await validUser.save();
     // Object Id should be defined when successfully saved to MongoDB.
     expect(savedUser._id).toBeDefined();
-    expect(savedUser.UserName).toBe(UserData.UserName);
+    expect(savedUser.username).toBe(UserData.username);
     expect(savedUser.createdBy).toBe(UserData.createdBy);
     expect(savedUser.size).toBe(UserData.size);
     expect(savedUser.toppings).toContain('Pepperoni');
@@ -44,7 +43,7 @@ describe('User Model Test', () => {
   // You shouldn't be able to add in any field that isn't defined in the schema
   it('Create User successfully, but the field not defined in schema should be undefined', async () => {
     const UserWithInvalidField = new User({
-      UserName: 'The Tester',
+      username: 'The Tester',
       createdBy: 'Lernantino',
       email: 'lernantino@gmail.com'
   
@@ -59,7 +58,7 @@ describe('User Model Test', () => {
   // Test Validation is working!!!
   // It should tells us the errors in on enumerable `size` field.
   it('Create User without required field should fail', async () => {
-    const UserWithoutInfo = new User({ userName: 'The tester' });
+    const UserWithoutInfo = new User({ username: 'The tester' });
     let err;
     try {
       const savedUserWithoutInfo = await UserWithoutInfo.save();
